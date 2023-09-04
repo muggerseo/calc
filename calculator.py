@@ -79,26 +79,29 @@ result_label.pack()
 input_1.focus_set()
 
 #=======NUM keys pannel=======
-# label_digit_1 = tk.Button(window, text="1")
-# label_digit_1.pack(padx=10)
-# label_digit_2 = tk.Button(window, text="2")
-# label_digit_2.pack(padx=10)
-# label_digit_3 = tk.Button(window, text="3")
-# label_digit_3.pack(pady=10)
-# label_digit_4 = tk.Button(window, text="4")
-# label_digit_4.pack(padx=10)
-# label_digit_5 = tk.Button(window, text="5")
-# label_digit_5.pack(pady=10)
-# label_digit_6 = tk.Button(window, text="6")
-# label_digit_6.pack(padx=10)
-# label_digit_7 = tk.Button(window, text="7")
-# label_digit_7.pack(pady=10)
-# label_digit_8 = tk.Button(window, text="8")
-# label_digit_8.pack(padx=10)
-# label_digit_9 = tk.Button(window, text="9")
-# label_digit_9.pack(pady=10)
-# label_digit_0 = tk.Button(window, text="0")
-# label_digit_0.pack(padx=10)
+
+class CalculatorApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Calculator")
+
+        self.entry = tk.Entry(root)
+        self.entry.grid(row=0, colomn = 0, colomnspan = 4)
+
+        for i in  range(1,10):
+            row_num = (i - 1) // 3 + 1
+            col_num = (i + 1) % 3
+            button = tk.Button(root, text=str(i), command=lambda i=i: self.on_digital_click(i))
+            button.grid(row=row_num, column=col_num)
+
+    def on_digital_click(self, digit):
+        current_text = self.entry.get()
+        self.entry.delete(0, tk.END)
+        self.entry.insert(0, current_text + str(digit))
+
+root = tk.Tk()
+app = CalculatorApp(root)
+root.mainloop()
 
 if __name__ == '__main__':
     window.mainloop()
