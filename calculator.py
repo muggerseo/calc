@@ -51,28 +51,36 @@ def operator(a, b, operator):
 window = tk.Tk()
 window.title("Calculator")
 window.resizable(True,True)
-window.geometry('600x600')
+window.geometry('300x400')
 
-label_1 = tk.Label(window, text='First number: ')
-label_1.pack(pady=10)
-input_1 = tk.Entry(window, bg='white')
-input_1.pack()
+#----create a frame for the input fields----
+input_frame = tk.Frame(window)
+input_frame.grid(pady=20)
 
-label_2 = tk.Label(window, text='Second number: ')
-label_2.pack(pady=10)
-input_2 = tk.Entry(window, bg='white')
-input_2.pack()
+label_1 = tk.Label(input_frame, text='First number: ')
+label_1.grid(row=0, column=0)
+input_1 = tk.Entry(input_frame, bg='white')
+input_1.grid(row=0, column=1)
 
-label_3 = tk.Label(window, text='Operation: ')
-label_3.pack(pady=10)
-input_3 = tk.Entry(window, bg='white')
-input_3.pack()
+label_2 = tk.Label(input_frame, text='Second number: ')
+label_2.grid(row=1, column=0)
+input_2 = tk.Entry(input_frame, bg='white')
+input_2.grid(row=1, column=1, padx=10)
 
-calc_botton = tk.Button(window, text="Calculate", command=calculate)
-calc_botton.pack(pady=20)
+label_3 = tk.Label(input_frame, text='Operation: ')
+label_3.grid(row=2, column=0)
+input_3 = tk.Entry(input_frame, bg='white')
+input_3.grid(row=2, column=1)
 
-result_label = tk.Label(window, text="Result: ")
-result_label.pack()
+calc_button = tk.Button(input_frame, text="Calculate", command=calculate)
+calc_button.grid(row=4, columnspan=1, pady=5)
+
+result_label = tk.Label(input_frame, text='Result: ')
+result_label.grid(row=5, columnspan=1)
+
+# Create a frame for the numeric keypad
+keypad_frame = tk.Frame(window)
+keypad_frame.grid(row=6, column=1, pady=20)
 
 #======input=======
 
@@ -86,11 +94,13 @@ class CalculatorApp:
         self.root.title("Calculator")
 
         self.entry = tk.Entry(root)
-        self.entry.grid(row=0, colomn = 0, colomnspan = 4)
+        self.entry.grid(row = 0, column = 0, columnspan = 3)
 
-        for i in  range(1,10):
+        for i in  range(1, 10):
             row_num = (i - 1) // 3 + 1
-            col_num = (i + 1) % 3
+            col_num = (i - 1) % 3
+            if i == 9:
+                col_num = 2
             button = tk.Button(root, text=str(i), command=lambda i=i: self.on_digital_click(i))
             button.grid(row=row_num, column=col_num)
 
@@ -99,9 +109,7 @@ class CalculatorApp:
         self.entry.delete(0, tk.END)
         self.entry.insert(0, current_text + str(digit))
 
-root = tk.Tk()
-app = CalculatorApp(root)
-root.mainloop()
+app = CalculatorApp(window)
 
 if __name__ == '__main__':
     window.mainloop()
