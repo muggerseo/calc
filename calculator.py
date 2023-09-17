@@ -16,12 +16,28 @@ class Calculator:
         return a * b
 
     def divide(self,a,b):
-        return a % b
+        return a / b
 
 def calculate():
-    a = float(input_1.get())
-    b = float(input_2.get())
+    a_str = float(input_1.get())
+    b_str = float(input_2.get())
     selected_operator = input_3.get()
+
+    try:
+        a = int(a_str)
+    except ValueError:
+        messagebox.showerror("Type Error", "First number must be an integer")
+        input_1.delete(0, 'end')
+        input_1.focus_set()
+        return
+    
+    try:
+        b = int(b_str)
+    except ValueError:
+        messagebox.showerror("Type Error", "Second number must be an integer")
+        input_2.delete(0, 'end')
+        input_2.focus_set()
+        return
 
     result = operator(a, b, selected_operator)
     result_label.config(text="Result: " + str(result))
@@ -30,7 +46,7 @@ calc = Calculator()
 
 def operator(a, b, operator):
     result = 0
-
+    
     if operator == '+':
         result = calc.add(a, b)
     elif operator == '-':
@@ -46,6 +62,12 @@ def operator(a, b, operator):
     elif operator not in ('+','-','/','*'):
             messagebox.showerror("Error!!!", "only + - / * operators acceptable!")
             input_3.focus_set()
+    elif a is not int:
+        messagebox.showerror("Type Error", "Enter number")
+        input_1.focus_set()
+    elif b is not int:
+        messagebox.showerror("Type Error", "Enter number")
+        input_2.focus_set()
     else:
         result = "Invalid operator!"
 
