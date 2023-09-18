@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import *
-from tkinter import ttk, messagebox
+from tkinter import messagebox
+from tkinter import ttk
 
 class Calculator:
     def __init__(self):
@@ -19,8 +20,8 @@ class Calculator:
         return a / b
 
 def calculate():
-    a_str = float(input_1.get())
-    b_str = float(input_2.get())
+    a_str = input_1.get()
+    b_str = input_2.get()
     selected_operator = input_3.get()
 
     try:
@@ -30,7 +31,6 @@ def calculate():
         input_1.delete(0, 'end')
         input_1.focus_set()
         return
-    
     try:
         b = int(b_str)
     except ValueError:
@@ -56,11 +56,13 @@ def operator(a, b, operator):
     elif operator == '/':
         if operator == '/' and b == 0:
             messagebox.showerror("Error!!!", "Can't be divided by 0!")
+            input_2.delete(0, 'end')
             input_2.focus_set()
         else:
             result = calc.divide(a, b)
     elif operator not in ('+','-','/','*'):
             messagebox.showerror("Error!!!", "only + - / * operators acceptable!")
+            input_3.delete(0, 'end')
             input_3.focus_set()
     elif a is not int:
         messagebox.showerror("Type Error", "Enter number")
@@ -77,11 +79,16 @@ def reset_fields():
     input_1.delete(0, tk.END)
     input_2.delete(0, tk.END)
     input_3.delete(0, tk.END)
+
 #==================program interface start========================        
 window = tk.Tk()
 window.title("Calculator")
 window.resizable(True,True)
 window.geometry('250x300')
+
+#------button style----------
+style = ttk.Style()
+style.configure('Rounded.TButton', borderwidth=0, relief="flat", background='#007acc', foreground="white", padding=5, font=("Helvica",12))
 
 #----create a frame for the input fields----
 input_frame = tk.Frame(window)
@@ -113,7 +120,8 @@ calc_button.bind('<Return>', lambda event=None:calculate())
 result_label = tk.Label(input_frame, text='Result: ')
 result_label.grid(row=4, column=0)
 
-reset_button = tk.Button(input_frame, text="Reset", bg='grey', fg='red', width=10, height=2, command=reset_fields)
+reset_button = ttk.Button(input_frame, text="Reset", style='Rounded.TButton', command=reset_fields)
+reset_button.bind('<Return>', lambda event=None:reset_button)
 reset_button.grid(row=5, column=0, columnspan=2, pady=30)
 
 # Create a frame for the numeric keypad
