@@ -87,42 +87,45 @@ window.resizable(True,True)
 window.geometry('250x300')
 
 #------button style----------
-style = ttk.Style()
-style.configure('Rounded.TButton', borderwidth=0, relief="flat", background='#007acc', foreground="white", padding=5, font=("Helvica",12))
+calc_buttom_style = ttk.Style()
+calc_buttom_style.configure('Rounded.TButton', borderwidth=5, relief=tk.SUNKEN, background='#007acc', 
+                foreground="black", padding=1, font=("Helvica", 10, 'bold'))
+label_font=("Times new roman", 12, 'bold')
 
 #----create a frame for the input fields----
 input_frame = tk.Frame(window)
 input_frame.grid(pady=20)
 
-label_1 = tk.Label(input_frame, text='First number: ', font=("Helvetica", 10, 'bold'))
+label_1 = ttk.Label(input_frame,  text='First number: ', font=label_font)
 label_1.grid(row=0, column=0)
 input_1 = tk.Entry(input_frame, bg='white')
 input_1.grid(row=0, column=1)
 input_1.focus_set()
 input_1.bind('<Return>', lambda event: input_2.focus_set())
 
-label_2 = tk.Label(input_frame, text='Second number: ', font=("Helvetica", 10, 'bold'))
+label_2 = tk.Label(input_frame, text='Second number: ',  font=label_font)
 label_2.grid(row=1, column=0)
 input_2 = tk.Entry(input_frame, bg='white')
 input_2.grid(row=1, column=1)
 input_2.bind('<Return>', lambda event: input_3.focus_set())
 
-label_3 = tk.Label(input_frame, text='Operation: ', font=("Helvetica", 10, 'bold'))
+label_3 = tk.Label(input_frame, text='Operation: ',  font=label_font)
 label_3.grid(row=2, column=0)
 input_3 = tk.Entry(input_frame, bg='white')
 input_3.grid(row=2, column=1)
 input_3.bind('<Return>', lambda event: calc_button.focus_set())
 
-calc_button = tk.Button(input_frame, text="Calculate", width=10, height=2, command=calculate)
+calc_button = ttk.Button(input_frame, text="Calculate", command=calculate, style='Rounded.TButton')
 calc_button.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
 calc_button.bind('<Return>', lambda event=None:calculate())
 
 result_label = tk.Label(input_frame, text='Result: ')
 result_label.grid(row=4, column=0)
 
-reset_button = ttk.Button(input_frame, text="Reset", style='Rounded.TButton', command=reset_fields)
+# reset_button = ttk.Button(input_frame, text="Reset", style='Rounded.TButton', command=reset_fields)
+reset_button = ttk.Button(input_frame, style='Rounded.TButton', text="Reset",  command=reset_fields)
 reset_button.bind('<Return>', lambda event=None:reset_button)
-reset_button.grid(row=5, column=0, columnspan=2, pady=30)
+reset_button.grid(row=5, column=0, columnspan=2, pady=10)
 
 # Create a frame for the numeric keypad
 # keypad_frame = tk.Frame(window)
@@ -131,8 +134,6 @@ reset_button.grid(row=5, column=0, columnspan=2, pady=30)
 # enter_button = tk.Button(input_frame, text='Next number')
 # enter_button.grid(row=7, column=0, columnspan=3, pady=20)
 
-#======input=======
-input_1.focus_set()
 #=======NUM keys pannel=======
 
 # class CalculatorApp:
