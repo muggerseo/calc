@@ -1,1 +1,145 @@
-1
+import tkinter as tk
+from tkinter import *
+from tkinter import messagebox
+from tkinter import ttk
+from PIL import Image, ImageTk
+
+class Calculator:
+    def __init__(self):
+        pass
+
+    def add(self,a,b):
+        return a + b
+
+    def substract(self,a,b):
+        return a - b
+
+    def multiply(self,a,b):
+        return a * b
+
+    def divide(self,a,b):
+        return a / b
+
+def calculate():
+    a_str = input_1.get()
+    b_str = input_2.get()
+    selected_operator = input_3.get()
+
+    try:
+        a = int(a_str)
+    except ValueError:
+        messagebox.showerror("Type Error", "First number must be an integer")
+        input_1.delete(0, 'end')
+        input_1.focus_set()
+        return
+    try:
+        b = int(b_str)
+    except ValueError:
+        messagebox.showerror("Type Error", "Second number must be an integer")
+        input_2.delete(0, 'end')
+        input_2.focus_set()
+        return
+
+    result = operator(a, b, selected_operator)
+    result_label.config(text="Result: " + str(result))
+
+calc = Calculator()
+
+def operator(a, b, operator):
+    result = 0
+    
+    if operator == '+':
+        result = calc.add(a, b)
+    elif operator == '-':
+        result = calc.substract(a, b)
+    elif operator == '*':
+        result = calc.multiply(a, b)
+    elif operator == '/':
+        if operator == '/' and b == 0:
+            messagebox.showerror("Error!!!", "Can't be divided by 0!")
+            input_2.delete(0, 'end')
+            input_2.focus_set()
+        else:
+            result = calc.divide(a, b)
+    elif operator not in ('+','-','/','*'):
+            messagebox.showerror("Error!!!", "only + - / * operators acceptable!")
+            input_3.delete(0, 'end')
+            input_3.focus_set()
+    elif a is not int:
+        messagebox.showerror("Type Error", "Enter number")
+        input_1.focus_set()
+    elif b is not int:
+        messagebox.showerror("Type Error", "Enter number")
+        input_2.focus_set()
+    else:
+        result = "Invalid operator!"
+
+    return result
+
+def reset_fields():
+    input_1.delete(0, tk.END)
+    input_2.delete(0, tk.END)
+    input_3.delete(0, tk.END)
+
+image_cache = {}
+
+def get_photoimage(image_path): # get a PhotoImage from the cache or create it if it doesn't exist
+    if image_path not in image_cache:
+        image_cache[image_path] = PhotoImage(file=image_path)
+    return image_cache[image_path]
+
+#==================program interface start========================
+window = tk.Tk()
+window.title("Calculator")
+window.resizable(True,True)
+window.geometry('250x300')
+
+#------button style----------
+calc_buttom_style = ttk.Style()
+calc_buttom_style.configure('Rounded.TButton', borderwidth=5, relief=tk.FLAT, background='#ccb800',
+                foreground="brown", padding=0, font=("Helvetica", 10, 'bold'))
+label_font=("Times new roman", 12, 'bold')
+
+jpeg_image_1= Image.open("C:\\Users\\mugger\\Desktop\\programming\\calc\\images\\calculate.jpg") # load image
+jpeg_image_1.save("C:\\Users\\mugger\\Desktop\\programming\\calc\\images\\calculate.gif", "GIF")
+photo_1 = PhotoImage(file="C:\\Users\\mugger\\Desktop\\programming\\calc\\images\\calculate.gif")
+jpeg_image_2 =Image.open("C:\\Users\\mugger\\Desktop\\programming\\calc\\images\\reset.jpg")
+jpeg_image_2.save("C:\\Users\\mugger\\Desktop\\programming\\calc\\images\\reset.gif", "GIF")
+photo_2 = PhotoImage(file="C:\\Users\\mugger\\Desktop\\programming\\calc\\images\\reset.gif")
+
+#----create a frame for the input fields----
+input_frame = tk.Frame(window)
+input_frame.grid(pady=20)
+
+label_1 = ttk.Label(input_frame,  text='First number: ', font=label_font)
+label_1.grid(row=0, column=0)
+input_1 = tk.Entry(input_frame, bg='white')
+input_1.grid(row=0, column=1)
+input_1.focus_set()
+input_1.bind('<Return>', lambda event: input_2.focus_set())
+
+label_2 = tk.Label(input_frame, text='Second number: ', font=label_font)
+label_2.grid(row=1, column=0)
+input_2 = tk.Entry(input_frame, bg='white')
+input_2.grid(row=1, column=1)
+input_2.bind('<Return>', lambda event: input_3.focus_set())
+
+label_3 = tk.Label(input_frame, text='Operation: ', font=label_font)
+label_3.grid(row=2, column=0)
+input_3 = tk.Entry(input_frame, bg='white')
+input_3.grid(row=2, column=1)
+input_3.bind('<Return>', lambda event: calc_button.focus_set())
+
+calc_button = ttk.Button(input_frame, image=get_photoimage(photo_1), text="Calculate", command=calculate, style='Rounded.TButton')
+calc_button.grid(row=3, column=0, columnspan=2, padx=10, pady=20)
+calc_button.bind('<Return>', lambda event=None:calculate())
+
+result_label = tk.Label(input_frame, text='Result: ')
+result_label.grid(row=4, column=0)
+
+reset_button = ttk.Button(input_frame, image=get_photoimage(photo_2), style='Rounded.TButton', text="Reset",  command=reset_fields)
+reset_button.grid(row=5, column=0, columnspan=2, pady=20)
+reset_button.bind('<Return>', lambda event=None:reset_fields())
+
+if __name__ == '__main__':
+    window.mainloop()
