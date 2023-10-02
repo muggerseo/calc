@@ -100,11 +100,11 @@ calc_buttom_style.configure('Rounded.TButton', borderwidth=5, relief=tk.FLAT, ba
                 foreground="brown", padding=0, font=("Helvetica", 10, 'bold'))
 label_font=("Times new roman", 12, 'bold')
 
-#--- load image ---
-jpeg_image_1 = "images\\calculate.gif" 
-photo_1 = PhotoImage(file=jpeg_image_1)
-jpeg_image_2 = "images\\reset.gif"
-photo_2 = PhotoImage(file=jpeg_image_2)
+#------load image------
+# jpeg_image_1 = "images\\calculate.gif" 
+# photo_1 = PhotoImage(file=jpeg_image_1)
+# jpeg_image_2 = "images\\reset.gif"
+# photo_2 = PhotoImage(file=jpeg_image_2)
 
 #----create a frame for the input fields----
 input_frame = tk.Frame(window)
@@ -129,14 +129,14 @@ input_3 = tk.Entry(input_frame, bg='white')
 input_3.grid(row=2, column=1)
 input_3.bind('<Return>', lambda event: calc_button.focus_set())
 
-calc_button = ttk.Button(input_frame, image=(photo_1), text="Calculate", command=calculate, style='Rounded.TButton')
+calc_button = ttk.Button(input_frame, image=None, text="Calculate", command=calculate, style='Rounded.TButton')
 calc_button.grid(row=3, column=0, columnspan=2, padx=10, pady=20)
 calc_button.bind('<Return>', lambda event=None:calculate())
 
 result_label = tk.Label(input_frame, text='Result: ')
 result_label.grid(row=4, column=0)
 
-reset_button = ttk.Button(input_frame, image=(photo_2), style='Rounded.TButton', text="Reset",  command=reset_fields)
+reset_button = ttk.Button(input_frame, image=None, style='Rounded.TButton', text="Reset",  command=reset_fields)
 reset_button.grid(row=5, column=0, columnspan=2, pady=20)
 reset_button.bind('<Return>', lambda event=None:reset_fields())
 
