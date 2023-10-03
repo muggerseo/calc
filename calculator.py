@@ -45,36 +45,72 @@ def calculate():
 
 calc = Calculator()
 
-def operator(a, b, operator):
+# def operator(a, b, operator):
+#     result = 0
+    
+#     if operator == '+':
+#         result = calc.add(a, b)
+#     elif operator == '-':
+#         result = calc.substract(a, b)
+#     elif operator == '*':
+#         result = calc.multiply(a, b)
+#     elif operator == '/':
+#         if operator == '/' and b == 0:
+#             messagebox.showerror("Error!!!", "Can't be divided by 0!")
+#             input_2.delete(0, 'end')
+#             input_2.focus_set()
+#         else:
+#             result = calc.divide(a, b)
+#     elif operator not in ('+','-','/','*'):
+#             messagebox.showerror("Error!!!", "only + - / * operators acceptable!")
+#             input_3.delete(0, 'end')
+#             input_3.focus_set()
+#     elif a is not int:
+#         messagebox.showerror("Type Error", "Enter number")
+#         input_1.focus_set()
+#     elif b is not int:
+#         messagebox.showerror("Type Error", "Enter number")
+#         input_2.focus_set()
+#     else:
+#         result = "Invalid operator!"
+
+#     return result
+
+def operator(a,b, operator):
     result = 0
+
+    if not isinstance(a, int) or not isinstance(b, int):
+        messagebox.showerror("Type error", "Enter valid integer numbers")
+        if not isinstance(a, int):
+            input_1.delete(0, 'end')
+            input_1.focus_set()
+        if not isinstance(b, int):
+            input_2.delete(0, 'end')
+            input_2.focus_set()
+        return
     
     if operator == '+':
-        result = calc.add(a, b)
+        result = calc.add(a,b)
     elif operator == '-':
-        result = calc.substract(a, b)
+        result = calc.substract(a,b)
     elif operator == '*':
-        result = calc.multiply(a, b)
+        result = calc.multiply(a,b)
     elif operator == '/':
-        if operator == '/' and b == 0:
-            messagebox.showerror("Error!!!", "Can't be divided by 0!")
+        if b == 0:
+            messagebox.showerror("Error!!!", "Can't be divided by 0")
             input_2.delete(0, 'end')
             input_2.focus_set()
         else:
-            result = calc.divide(a, b)
-    elif operator not in ('+','-','/','*'):
-            messagebox.showerror("Error!!!", "only + - / * operators acceptable!")
-            input_3.delete(0, 'end')
-            input_3.focus_set()
-    elif a is not int:
-        messagebox.showerror("Type Error", "Enter number")
-        input_1.focus_set()
-    elif b is not int:
-        messagebox.showerror("Type Error", "Enter number")
-        input_2.focus_set()
+            result = calc.divide(a,b)
+    elif operator not in ('+','-','*','/'):
+        messagebox.showerror("Error!!!", "Only + - / * operators are acceptable!")
+        input_3.delete(0, 'end')
+        input_3.focus_set()
     else:
         result = "Invalid operator!"
-
+        
     return result
+
 
 def reset_fields():
     input_1.delete(0, tk.END)
