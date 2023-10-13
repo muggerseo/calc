@@ -45,36 +45,28 @@ def calculate():
 
 calc = Calculator()
 
-# def operator(a, b, operator):
-#     result = 0
-    
-#     if operator == '+':
-#         result = calc.add(a, b)
-#     elif operator == '-':
-#         result = calc.substract(a, b)
-#     elif operator == '*':
-#         result = calc.multiply(a, b)
-#     elif operator == '/':
-#         if operator == '/' and b == 0:
-#             messagebox.showerror("Error!!!", "Can't be divided by 0!")
-#             input_2.delete(0, 'end')
-#             input_2.focus_set()
-#         else:
-#             result = calc.divide(a, b)
-#     elif operator not in ('+','-','/','*'):
-#             messagebox.showerror("Error!!!", "only + - / * operators acceptable!")
-#             input_3.delete(0, 'end')
-#             input_3.focus_set()
-#     elif a is not int:
-#         messagebox.showerror("Type Error", "Enter number")
-#         input_1.focus_set()
-#     elif b is not int:
-#         messagebox.showerror("Type Error", "Enter number")
-#         input_2.focus_set()
-#     else:
-#         result = "Invalid operator!"
+def check_input_type():
 
-#     return result
+    a_str = input_1.get()
+    b_str = input_2.get()
+
+    try:
+        a = int(a_str)
+    except ValueError:
+        messagebox.showerror("Type Error", "First number must be an integer")
+        input_1.delete(0, 'end')
+        input_1.focus_set()
+        return None
+    
+    try:
+        b = int(b_str)
+    except ValueError:
+        messagebox.showerror("Type Error", "Second number must be an integer")
+        input_2.delete(0,'end')
+        input_2.focus_set()
+        return None
+    
+    return a, b
 
 def operator(a,b, operator):
     result = 0
@@ -117,7 +109,18 @@ def reset_fields():
     input_2.delete(0, tk.END)
     input_3.delete(0, tk.END)
 
-image_cache = {}
+def validate_and_focus(event, entry_widget, next_widget):
+    input_str = entry_widget.get()
+    try:
+        value = int(input_str)
+        next_widget.focus_set()
+    except ValueError:
+        messagebox.showerror("Error", "Integer numbers only")
+        entry_widget.delete(0, 'end')
+        entry_widget.focus_set()
+
+
+# image_cache = {}
 
 # def get_photoimage(image_path): # get a PhotoImage from the cache or create it if it doesn't exist
 #     if image_path not in image_cache:
@@ -146,18 +149,19 @@ label_font=("Times new roman", 12, 'bold')
 input_frame = tk.Frame(window)
 input_frame.grid(pady=20)
 
-label_1 = ttk.Label(input_frame,  text='First number: ', font=label_font)
+label_1 = ttk.Label(input_frame, text='First number: ', font=label_font)
 label_1.grid(row=0, column=0)
 input_1 = tk.Entry(input_frame, bg='white')
 input_1.grid(row=0, column=1)
 input_1.focus_set()
-input_1.bind('<Return>', lambda event: input_2.focus_set())
+input_1.bind('<Return>', lambda event: validate_and_focus(event, input_1, input_2))
 
 label_2 = tk.Label(input_frame, text='Second number: ', font=label_font)
 label_2.grid(row=1, column=0)
 input_2 = tk.Entry(input_frame, bg='white')
 input_2.grid(row=1, column=1)
-input_2.bind('<Return>', lambda event: input_3.focus_set())
+input_2.bind('<Return>', check_input_type)
+input_2.bind('<Return>', lambda event: validate_and_focus(event, input_2, input_3))
 
 label_3 = tk.Label(input_frame, text='Operation: ', font=label_font)
 label_3.grid(row=2, column=0)
