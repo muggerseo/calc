@@ -119,6 +119,17 @@ def validate_and_focus(event, entry_widget, next_widget):
         entry_widget.delete(0, 'end')
         entry_widget.focus_set()
 
+def operator_check(event):
+    input_valid = input_3.get()
+    valid_operators = ('+','-','*','/')
+
+    if input_valid in valid_operators:
+        calc_button.focus_set()
+    else:
+        messagebox.showerror("Error", "'+','-','*','/' only")
+        input_3.delete(0, 'end')
+        input_3.focus_set()
+
 
 # image_cache = {}
 
@@ -160,20 +171,19 @@ label_2 = tk.Label(input_frame, text='Second number: ', font=label_font)
 label_2.grid(row=1, column=0)
 input_2 = tk.Entry(input_frame, bg='white')
 input_2.grid(row=1, column=1)
-input_2.bind('<Return>', check_input_type)
 input_2.bind('<Return>', lambda event: validate_and_focus(event, input_2, input_3))
 
 label_3 = tk.Label(input_frame, text='Operation: ', font=label_font)
 label_3.grid(row=2, column=0)
 input_3 = tk.Entry(input_frame, bg='white')
 input_3.grid(row=2, column=1)
-input_3.bind('<Return>', lambda event: calc_button.focus_set())
+input_3.bind('<Return>', operator_check)
 
 calc_button = ttk.Button(input_frame, image=None, text="Calculate", command=calculate, style='Rounded.TButton')
 calc_button.grid(row=3, column=0, columnspan=2, padx=10, pady=20)
 calc_button.bind('<Return>', lambda event=None:calculate())
 
-result_label = tk.Label(input_frame, text='Result: ')
+result_label = tk.Label(input_frame, text='Result: ', font=label_font)
 result_label.grid(row=4, column=0)
 
 reset_button = ttk.Button(input_frame, image=None, style='Rounded.TButton', text="Reset",  command=reset_fields)
