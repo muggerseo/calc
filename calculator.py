@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import *
-from tkinter import messagebox
-from tkinter import ttk
+from tkinter import messagebox, ttk
 from PIL import Image, ImageTk
 
 class Calculator:
@@ -108,6 +107,7 @@ def reset_fields():
     input_1.delete(0, tk.END)
     input_2.delete(0, tk.END)
     input_3.delete(0, tk.END)
+    input_1.focus_set()
 
 def validate_and_focus(event, entry_widget, next_widget):
     input_str = entry_widget.get()
@@ -115,9 +115,13 @@ def validate_and_focus(event, entry_widget, next_widget):
         value = int(input_str)
         next_widget.focus_set()
     except ValueError:
-        messagebox.showerror("Error", "Integer numbers only")
-        entry_widget.delete(0, 'end')
-        entry_widget.focus_set()
+        try:
+            value = float(input_str)
+            entry_widget.next_widget()
+        except:
+            messagebox.showerror("Error", "Integer numbers only")
+            entry_widget.delete(0, 'end')
+            entry_widget.focus_set()
 
 def operator_check(event):
     input_valid = input_3.get()
@@ -130,14 +134,6 @@ def operator_check(event):
         input_3.delete(0, 'end')
         input_3.focus_set()
 
-
-# image_cache = {}
-
-# def get_photoimage(image_path): # get a PhotoImage from the cache or create it if it doesn't exist
-#     if image_path not in image_cache:
-#         image_cache[image_path] = PhotoImage(file=image_path)
-#     return image_cache[image_path]
-
 #==================program interface start========================
 window = tk.Tk()
 window.title("Calculator")
@@ -149,12 +145,6 @@ calc_buttom_style = ttk.Style()
 calc_buttom_style.configure('Rounded.TButton', borderwidth=5, relief=tk.FLAT, background='#ccb800',
                 foreground="brown", padding=0, font=("Helvetica", 10, 'bold'))
 label_font=("Times new roman", 12, 'bold')
-
-#------load image------
-# jpeg_image_1 = "images\\calculate.gif" 
-# photo_1 = PhotoImage(file=jpeg_image_1)
-# jpeg_image_2 = "images\\reset.gif"
-# photo_2 = PhotoImage(file=jpeg_image_2)
 
 #----create a frame for the input fields----
 input_frame = tk.Frame(window)

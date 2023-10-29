@@ -1,4 +1,3 @@
-# jpeg_image_1 = "images\\calculate.gif" 
-# photo_1 = PhotoImage(file=jpeg_image_1)
-# jpeg_image_2 = "images\\reset.gif"
-# photo_2 = PhotoImage(file=jpeg_image_2)
+    messagebox.showerror("Error", "Integer numbers only")
+            entry_widget.delete(0, 'end')
+            entry_widget.focus_set()
