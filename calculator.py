@@ -104,10 +104,14 @@ def operator(a,b, operator):
 
 
 def reset_fields():
-    input_1.delete(0, tk.END)
-    input_2.delete(0, tk.END)
-    input_3.delete(0, tk.END)
-    input_1.focus_set()
+    answer = messagebox.askquestion("Reset input fields?")
+    if answer == "yes":
+        input_1.delete(0, tk.END)
+        input_2.delete(0, tk.END)
+        input_3.delete(0, tk.END)
+        input_1.focus_set()
+    elif answer == "no":
+        messagebox._show("Cancelled", "Reset canceled.")
 
 def validate_and_focus(event, entry_widget, next_widget):
     input_str = entry_widget.get()
