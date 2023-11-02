@@ -145,6 +145,11 @@ window.resizable(True,True)
 window.geometry('250x300')
 
 #------button style----------
+image1 = Image.open("C:\\Users\\mugger\\Desktop\\programming\\calc\\images\\but_calculate.gif")
+image1 = ImageTk.PhotoImage(image1)
+image2 = Image.open("C:\\Users\\mugger\\Desktop\\programming\\calc\\images\\but_reset.gif")
+image2 = ImageTk.PhotoImage(image2)
+
 calc_buttom_style = ttk.Style()
 calc_buttom_style.configure('Rounded.TButton', borderwidth=5, relief=tk.FLAT, background='#ccb800',
                 foreground="brown", padding=0, font=("Helvetica", 10, 'bold'))
@@ -173,14 +178,14 @@ input_3 = tk.Entry(input_frame, bg='white')
 input_3.grid(row=2, column=1)
 input_3.bind('<Return>', operator_check)
 
-calc_button = ttk.Button(input_frame, image=None, text="Calculate", command=calculate, style='Rounded.TButton')
+calc_button = ttk.Button(input_frame, image=image1, text="Calculate", command=calculate, style='Rounded.TButton')
 calc_button.grid(row=3, column=0, columnspan=2, padx=10, pady=20)
 calc_button.bind('<Return>', lambda event=None:calculate())
 
 result_label = tk.Label(input_frame, text='Result: ', font=label_font)
 result_label.grid(row=4, column=0)
 
-reset_button = ttk.Button(input_frame, image=None, style='Rounded.TButton', text="Reset",  command=reset_fields)
+reset_button = ttk.Button(input_frame, image=image2, style='Rounded.TButton', text="Reset", command=reset_fields)
 reset_button.grid(row=5, column=0, columnspan=2, pady=20)
 reset_button.bind('<Return>', lambda event=None:reset_fields())
 
