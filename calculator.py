@@ -55,8 +55,6 @@ def operator(a,b, operator):
         if not isinstance(b, int):
             input_2.delete(0, 'end')
             input_2.focus_set()
-        return
-    
     if operator == '+':
         result = calc.add(a,b)
     elif operator == '-':
@@ -76,9 +74,8 @@ def operator(a,b, operator):
         input_3.focus_set()
     else:
         result = "Invalid operator!"
-        
-    return result
 
+    return result
 
 def reset_fields():
     answer = messagebox.askquestion("Reset input fields?")
