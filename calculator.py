@@ -44,29 +44,6 @@ def calculate():
 
 calc = Calculator()
 
-def check_input_type():
-
-    a_str = input_1.get()
-    b_str = input_2.get()
-
-    try:
-        a = int(a_str)
-    except ValueError:
-        messagebox.showerror("Type Error", "First number must be an integer")
-        input_1.delete(0, 'end')
-        input_1.focus_set()
-        return None
-    
-    try:
-        b = int(b_str)
-    except ValueError:
-        messagebox.showerror("Type Error", "Second number must be an integer")
-        input_2.delete(0,'end')
-        input_2.focus_set()
-        return None
-    
-    return a, b
-
 def operator(a,b, operator):
     result = 0
 
@@ -109,6 +86,7 @@ def reset_fields():
         input_1.delete(0, tk.END)
         input_2.delete(0, tk.END)
         input_3.delete(0, tk.END)
+        result_label.config(text="Result: ")
         input_1.focus_set()
     elif answer == "no":
         messagebox._show("Cancelled", "Reset canceled.")
@@ -172,7 +150,7 @@ input_2 = tk.Entry(input_frame, bg='white')
 input_2.grid(row=1, column=1)
 input_2.bind('<Return>', lambda event: validate_and_focus(event, input_2, input_3))
 
-label_3 = tk.Label(input_frame, text='Operation: ', font=label_font)
+label_3 = tk.Label(input_frame, text='Operation: ', font=label_font, width=15)
 label_3.grid(row=2, column=0)
 input_3 = tk.Entry(input_frame, bg='white')
 input_3.grid(row=2, column=1)
