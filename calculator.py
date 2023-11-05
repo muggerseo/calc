@@ -113,6 +113,12 @@ def operator_check(event):
         input_3.delete(0, 'end')
         input_3.focus_set()
 
+# def on_closing():
+#     if messagebox.askokcancel("Quit", "Do yo really want to close the window?"):
+#         window.destroy()
+
+# window = tk.Tk()
+# window.protocol("WM_DELETE_WINDOW", on_closing) # intercept window close event
 #==================program interface start========================
 window = tk.Tk()
 window.title("Calculator")
