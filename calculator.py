@@ -113,12 +113,12 @@ def operator_check(event):
         input_3.delete(0, 'end')
         input_3.focus_set()
 
-# def on_closing():
-#     if messagebox.askokcancel("Quit", "Do yo really want to close the window?"):
-#         window.destroy()
+def on_closing():
+    if messagebox.askokcancel("Quit", "Do yo really want to close the window?"):
+        window.destroy()
 
-# window = tk.Tk()
-# window.protocol("WM_DELETE_WINDOW", on_closing) # intercept window close event
+window = tk.Tk()
+window.protocol("WM_DELETE_WINDOW", on_closing) # intercept window close event
 #==================program interface start========================
 window = tk.Tk()
 window.title("Calculator")
@@ -126,9 +126,11 @@ window.resizable(True,True)
 window.geometry('250x300')
 
 #------button style----------
-image1 = Image.open("C:\\Users\\mugger\\Desktop\\programming\\calc\\images\\but_calculate.gif")
+image1 = None
+image2 = None
+image1 = Image.open("C:\\Users\\admin\\Desktop\\programming\\calc\\images\\but_calculate.gif")
 image1 = ImageTk.PhotoImage(image1)
-image2 = Image.open("C:\\Users\\mugger\\Desktop\\programming\\calc\\images\\but_reset.gif")
+image2 = Image.open("C:\\Users\\admin\\Desktop\\programming\\calc\\images\\but_reset.gif")
 image2 = ImageTk.PhotoImage(image2)
 
 calc_buttom_style = ttk.Style()
