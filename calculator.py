@@ -1,4 +1,4 @@
-import gc
+import gc #
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox, ttk
