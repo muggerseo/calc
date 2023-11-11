@@ -1,8 +1,14 @@
-import gc #
+import gc
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox, ttk
 from PIL import Image, ImageTk
+
+img_calculate = None
+img_reset = None
+
+img_calculate = ImageTk.PhotoImage(Image.open("C:\\Users\\mugger\\Desktop\\programming\\calc\\images\\but_calculate.gif"))
+img_reset = ImageTk.PhotoImage(Image.open("C:\\Users\\mugger\\Desktop\\programming\\calc\\images\\but_reset.gif"))
 
 class Calculator:
     def __init__(self):
@@ -127,12 +133,12 @@ window.resizable(True,True)
 window.geometry('250x300')
 
 #------button style----------
-image1 = None
-image2 = None
-image1 = Image.open("C:\\Users\\admin\\Desktop\\programming\\calc\\images\\but_calculate.gif")
-image1 = ImageTk.PhotoImage(image1)
-image2 = Image.open("C:\\Users\\admin\\Desktop\\programming\\calc\\images\\but_reset.gif")
-image2 = ImageTk.PhotoImage(image2)
+# image1 = None
+# image2 = None
+# image1 = Image.open("C:\\Users\\mugger\\Desktop\\programming\\calc\\images\\but_calculate.gif")
+# image1 = ImageTk.PhotoImage(image1)
+# image2 = Image.open("C:\\Users\\mugger\\Desktop\\programming\\calc\\images\\but_reset.gif")
+# image2 = ImageTk.PhotoImage(image2)
 
 calc_buttom_style = ttk.Style()
 calc_buttom_style.configure('Rounded.TButton', borderwidth=5, relief=tk.FLAT, background='#ccb800',
